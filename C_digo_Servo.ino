@@ -5,11 +5,16 @@
 
 Servo meuServo;
 
+const int pinoPIR = 3; //PINO DIGITAL UTILIZADO PELO SENSOR DE PRESENÇA
+
 char ssid[] = "iPhone Airton";
 char pass[] = "2153818aa";
 char serverAddress[] = "https://api.tago.io/data";  // TagoIO address
 char contentHeader[] = "application/json";
 char tokenHeader[]   = "c4123b90-822d-45a0-bf0d-8c77662f09a6"; // TagoIO Token
+
+porta == 0;
+
 
 void setup() {​
   // put your setup code here, to run once:
@@ -18,6 +23,8 @@ void setup() {​
 
   meuServo.attach(porta);
   meuServo.write(0); // Inicia motor posição zero
+  pinMode(pinoPIR, INPUT); //DEFINE O PINO COMO ENTRADA
+  
 }​
 void init_wifi() {​
   Serial.println("Conectando WiFi");
@@ -34,14 +41,11 @@ void init_wifi() {​
 float temperatura = 0;
 void loop() {​
 
-  if (___________) {
+  lerSensor();
+
+  if (porta == 1) {
       moverServo(90);  // Move o servo para 90 graus
       enviarPortaAberta()
-    }
-    else if (________________) {
-      moverServo(-90);  // Move o servo para -90 graus (ou 90 graus na direção oposta)
-      enviarPortaAberta()
-    }
     else {
       moverServo(0);  // Mantém o servo na posição 0 graus
     }
@@ -50,6 +54,14 @@ void loop() {​
 
 
 }​
+
+void lerSensor(){
+  if(digitalRead(pinoPIR) == HIGH){
+    porta == 1;
+  }else{
+    porta == 0;
+  }
+ }
 
 void moverServo(int angulo) {
   meuServo.write(angulo);  // Move o servo para a posição especificada
@@ -62,14 +74,13 @@ void enviarPortaAberta() {
   char anyData1[30];
   char bAny[30];
   int statusCode = 0;
-  strcpy(postData, "{​\n\t\"variable\": \"Status Porta\",\n\t\"value\": \"Fechada\n");
+  strcpy(postData, "{​\n\t\"variable\": \"Status Porta\",\n\t\"value\": \"Aberta\n");
   strncat (postData, anyData1, 100);
   Serial.println(postData);
   client.begin(serverAddress);
   client.addHeader("Content-Type", contentHeader);
   client.addHeader("Device-Token", tokenHeader);
   statusCode = client.POST(postData);
-  delay (2000);
   Serial.print("Status code: ");
   Serial.println(statusCode);
   Serial.println("End of POST to TagoIO");
