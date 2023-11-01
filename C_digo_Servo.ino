@@ -5,15 +5,25 @@
 
 Servo meuServo;
 
-const int pinoPIR = 3; //PINO DIGITAL UTILIZADO PELO SENSOR DE PRESENÇA
+const int trigPin = 9;
+const int echoPin = 10;
+
+long duration;
+int distance;
+
+const int trigPin2 = 7;
+const int echoPin2 = 8;
+
+long duration2;
+int distance2;
+
+int porta;
 
 char ssid[] = "iPhone Airton";
 char pass[] = "2153818aa";
 char serverAddress[] = "https://api.tago.io/data";  // TagoIO address
 char contentHeader[] = "application/json";
 char tokenHeader[]   = "c4123b90-822d-45a0-bf0d-8c77662f09a6"; // TagoIO Token
-
-porta == 0;
 
 
 void setup() {​
@@ -23,7 +33,8 @@ void setup() {​
 
   meuServo.attach(porta);
   meuServo.write(0); // Inicia motor posição zero
-  pinMode(pinoPIR, INPUT); //DEFINE O PINO COMO ENTRADA
+  pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin, INPUT); // Sets the echoPin as an Input
   
 }​
 void init_wifi() {​
@@ -46,6 +57,10 @@ void loop() {​
   if (porta == 1) {
       moverServo(90);  // Move o servo para 90 graus
       enviarPortaAberta()
+    else if (porta == -1) {
+        moverServo(90);  // Move o servo para 90 graus
+        enviarPortaAberta()
+    } 
     else {
       moverServo(0);  // Mantém o servo na posição 0 graus
     }
@@ -55,8 +70,41 @@ void loop() {​
 
 }​
 
-void lerSensor(){
-  if(digitalRead(pinoPIR) == HIGH){
+void lerSensor1(){
+
+    // LENDO GENRO 1
+
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(2);
+    // Sets the trigPin on HIGH state for 10 micro seconds
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    // Reads the echoPin, returns the sound wave travel time in microseconds
+    duration = pulseIn(echoPin, HIGH);
+    // Calculating the distance
+    distance = duration * 0.034 / 2;
+    // Prints the distance on the Serial Monitor
+    Serial.print("Distance: ");
+    Serial.println(distance);
+
+    // LENDO GENRO 2
+
+    digitalWrite(trigPin2, LOW);
+    delayMicroseconds(2);
+    // Sets the trigPin on HIGH state for 10 micro seconds
+    digitalWrite(trigPin2, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin2, LOW);
+    // Reads the echoPin, returns the sound wave travel time in microseconds
+    duration2 = pulseIn(echoPin2, HIGH);
+    // Calculating the distance
+    distance2 = duration * 0.034 / 2;
+    // Prints the distance on the Serial Monitor
+    Serial.print("Distance 2: ");
+    Serial.println(distance2);
+
+  if(distance <= 5 || distance2 <= 5){
     porta == 1;
   }else{
     porta == 0;
