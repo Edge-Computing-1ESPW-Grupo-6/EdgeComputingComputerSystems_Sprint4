@@ -5,6 +5,10 @@
 
 Servo meuServo;
 
+int serialOrder = 0;
+int previousOpen = 0;
+char serialCommand;
+
 const int trigPin = 9;
 const int echoPin = 10;
 
@@ -18,6 +22,7 @@ long duration2;
 int distance2;
 
 int porta;
+int aberturas = 0;
 
 char ssid[] = "iPhone Airton";
 char pass[] = "2153818aa";
@@ -49,26 +54,48 @@ void init_wifi() {​
   Serial.println(WiFi.localIP());
 }​
 
-float temperatura = 0;
 void loop() {​
 
-  lerSensor();
+  lerSerial();
+  
+  if(serialOrder == 1){
+    moverServo(90);  // Move o servo para 90 graus
+    if(previousOpen == 0){
+      previousOpen = 1;
+      aberturas++
+    }
+    Serial.println("A porta esta aberta")
+  } else{
+    
+    lerSensor();
 
-  if (porta == 1) {
+    if (porta == 1) {
       moverServo(90);  // Move o servo para 90 graus
-      enviarPortaAberta()
-    else if (porta == -1) {
-        moverServo(90);  // Move o servo para 90 graus
-        enviarPortaAberta()
+      if(previousOpen == 0){
+      previousOpen = 1;
+      aberturas++
+      }
+      Serial.println("A porta esta aberta")
     } 
     else {
       moverServo(0);  // Mantém o servo na posição 0 graus
+      previousOpen = 0
+    }
+    
+  }
+}​
+
+void lerSerial(){
+  if (Serial.available() > 0) {
+    serialCommand = Serial.read();
+    // Verifique o comando e realize a ação desejada
+    if (serialCommand == 'O') {
+      serialOrder = 1; // Open the door
+    } else if (serialCommand == 'C') {
+      serialOrder = 0; // Close the door
     }
   }
-  
-
-
-}​
+}
 
 void lerSensor1(){
 
@@ -122,7 +149,8 @@ void enviarPortaAberta() {
   char anyData1[30];
   char bAny[30];
   int statusCode = 0;
-  strcpy(postData, "{​\n\t\"variable\": \"Status Porta\",\n\t\"value\": \"Aberta\n");
+  strcpy(postData, "{\n\t\"variable\": \"Aberturas\",\n\t\"value\": ");
+  dtostrf(aberturas, 6, 2, anyData);
   strncat (postData, anyData1, 100);
   Serial.println(postData);
   client.begin(serverAddress);
