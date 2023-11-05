@@ -63,6 +63,7 @@ void loop() {​
     if(previousOpen == 0){
       previousOpen = 1;
       aberturas++
+      enviarPortaAberta();
     }
     Serial.println("A porta esta aberta")
   } else{
@@ -73,7 +74,8 @@ void loop() {​
       moverServo(90);  // Move o servo para 90 graus
       if(previousOpen == 0){
       previousOpen = 1;
-      aberturas++
+      aberturas++;
+      enviarPortaAberta();
       }
       Serial.println("A porta esta aberta")
     } 
