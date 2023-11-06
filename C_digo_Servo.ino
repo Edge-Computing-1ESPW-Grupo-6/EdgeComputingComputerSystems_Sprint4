@@ -3,14 +3,16 @@
 #include "HTTPClient.h"
 #include <Servo.h>
 
+#define servoPIN 26
+
 Servo meuServo;
 
 int serialOrder = 0;
 int previousOpen = 0;
 char serialCommand;
 
-const int trigPin = 9;
-const int echoPin = 10;
+const int trigPin = 23;
+const int echoPin = 22;
 
 long duration;
 int distance;
@@ -21,11 +23,10 @@ const int echoPin2 = 8;
 long duration2;
 int distance2;
 
-int porta;
 int aberturas = 0;
 
-char ssid[] = "iPhone Airton";
-char pass[] = "2153818aa";
+char ssid[] = "Vini";
+char pass[] = "12345678";
 char serverAddress[] = "https://api.tago.io/data";  // TagoIO address
 char contentHeader[] = "application/json";
 char tokenHeader[]   = "c4123b90-822d-45a0-bf0d-8c77662f09a6"; // TagoIO Token
@@ -36,7 +37,7 @@ void setup() {​
   Serial.begin(9600);
   init_wifi();
 
-  meuServo.attach(porta);
+  meuServo.attach(servoPIN);
   meuServo.write(0); // Inicia motor posição zero
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
