@@ -21,7 +21,7 @@ const int trigPin2 = 7;
 const int echoPin2 = 8;
 
 long duration2;
-int distance2;
+int distance2; 
 
 int aberturas = 0;
 int porta = 0; // Initialize porta variable
@@ -120,9 +120,12 @@ void lerSensor() {
   digitalWrite(trigPin2, LOW);
   duration2 = pulseIn(echoPin2, HIGH);
   distance2 = duration2 * 0.034 / 2;
+  Serial.print("Distance2: ");
+  Serial.println(distance2);
 
-  if (distance <= 10) {
-    porta = 1; // Set porta to 1 if either distance is less than or equal to 5
+
+  if (distance <= 10 || distance2 <= 10) {
+    porta = 1; // Set porta to 1 if either distance is less than or equal to 10
   } else {
     porta = 0; // Otherwise, set porta to 0
   }
