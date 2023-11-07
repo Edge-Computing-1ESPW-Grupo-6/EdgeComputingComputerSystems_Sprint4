@@ -17,8 +17,8 @@ const int echoPin = 22;
 long duration;
 int distance;
 
-const int trigPin2 = 7;
-const int echoPin2 = 8;
+const int trigPin2 = 19;
+const int echoPin2 = 18;
 
 long duration2;
 int distance2; 
@@ -119,7 +119,7 @@ void lerSensor() {
   delayMicroseconds(10);
   digitalWrite(trigPin2, LOW);
   duration2 = pulseIn(echoPin2, HIGH);
-  distance2 = duration2 * 0.034 / 2;
+  distance2 = duration2 * 0.034 / 2;                                            
   Serial.print("Distance2: ");
   Serial.println(distance2);
 
