@@ -29,7 +29,7 @@ char ssid[] = "Vini";
 char pass[] = "12345678";
 char serverAddress[] = "https://api.tago.io/data";  // TagoIO address
 char contentHeader[] = "application/json";
-char tokenHeader[]   = "c4123b90-822d-45a0-bf0d-8c77662f09a6"; // TagoIO Token
+char tokenHeader[]   = "d2e67330-bc54-4e6a-902d-a7bf4e67846f"; // TagoIO Token
 
 
 void setup() {​
