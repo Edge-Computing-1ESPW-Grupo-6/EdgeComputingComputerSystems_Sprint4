@@ -17,8 +17,8 @@ const int echoPin = 22;
 long duration;
 int distance;
 
-const int trigPin2 = 19;
-const int echoPin2 = 18;
+const int trigPin2 = 33;
+const int echoPin2 = 32;
 
 long duration2;
 int distance2; 
@@ -43,6 +43,10 @@ void setup() {
 
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+
+  pinMode(trigPin2, OUTPUT); // Sets the trigPin as an Output
+  pinMode(echoPin2, INPUT); // Sets the echoPin as an Input
+  
 }
 
 void init_wifi() {
