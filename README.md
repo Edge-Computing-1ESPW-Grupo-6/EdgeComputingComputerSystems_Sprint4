@@ -15,14 +15,13 @@ ___
 <img src="./imgs/Galo_Weather.png">
 
 ### Descrição do Projeto
-Na terceira sprint da challenge proposta pela IBM, na matéria de Edge Computing & Computer Systems, nosso foco foi em integrar os circuitos e sistemas físicos apresentados nas outras entregas com a internet, através dos conceitos de internet das coisas (_internet of things_). 
-
-Dessa forma, os dados coletados pelos sensores serão armazenados online, o que viabiliza várias novas interações e tratamentos possíveis para esses dados, tornando o projeto mais dinâmico e funcional na prevenção e alerta de ocorrências de alagamentos nos centros urbanos.
+Nesta estapa final do desafio proposto pela IBM, na matéria de Edge Computing, fizemos a alteração do método de comunicação realizado entre circuito físico e plataforma online para recebimento de dados, onde passamos a utilizar o método de comunicação MQTT visto em sala de aula para envio dos dados lidos pelos sensores.
 ___
 ### Desenvolvimento do projeto
-Esta etapa do projeto foi desenvolvida a partir do circuito e sistemas já apresentados [neste repositório](https://github.com/Edge-Computing-1ESPW-Grupo-6/EdgeComputingComputerSystems_Sprint2), com a inclusão de conectividade com a internet e a integração com uma plataforma IoT gratuita que atendesse as necessidades do projeto, a [TagoIO](https://tago.io). 
+Esta etapa do projeto foi desenvolvida a partir do circuito e sistemas já apresentados [neste repositório](https://github.com/Edge-Computing-1ESPW-Grupo-6/EdgeComputingComputerSystems_Sprint3.git), com a inclusão de conectividade com a internet e a integração com uma plataforma IoT gratuita que atendesse as necessidades do projeto, a [TagoIO](https://tago.io). 
 
-O objetivo foi fazer com que os dados obtidos através das leituras realizadas pelo sensor físico fossem enviadas para a internet e armazenadas na plataforma Tago, podendo assim ser manuseadas e analisadas conforme necessário. Para isso, foi preciso fazer um ajuste na componetização do circuito, visto que a placa utilizada do Arduino não apresentava possibilidades de conectividade com a internet. Ela foi então substituida por uma placa modelo [ESP32](https://www.espressif.com/en/products/socs/esp32), que possui conectividade Bluetooth e WiFi, e fizemos os respectivos ajustes nos códigos para que esta funcionasse adequadamente. Mantivemos o sensor ultrassônico para medição do espaço desejado.
+O objetivo é que os dados obtidos pelos sensores físicos continuem a ser enviados para a internet e armazenadas na plataforma Tago, podendo assim ser manuseadas e analisadas conforme necessário, mas dessa vez utilizando o método de comunicação MQTT já mencionado. Para isso, foi preciso fazer um ajuste na estruturação do código e na própria plataforma Tago para se adaptar a esse novo meio de comunicação.
+
 <p align=center>
 <img src="./imgs/Esquema_Funcionamento.png" width="650" height="auto">
 </p>
@@ -30,9 +29,8 @@ O objetivo foi fazer com que os dados obtidos através das leituras realizadas p
 ___
 
 ### Funcionamento do projeto
-O funcionamento do projeto segue os mesmos passos do outro repositório já mencionado. Porém, ao fazer a letiura constante do espaço onde se encontra instalado, o programa realiza ações adicionais. Dessa forma, o funcionamento total do projeto é:
+O funcionamento do projeto segue os mesmos passos do outro repositório já mencionado:
 1. O [circuito](./imgs/Circuit_Sketch.png) é montado e instalado na entrada de um bueiro localizado em vias urbanas com recorrência de enchentes e alagamentos;
-    - Importante levar-se em consideração a nova montagem do circuito, em consequência das mudanças em sua componentização.
 2. O sensor de proximidade faz a leitura constante do espaço onde se encontra instalado;
     - A leitura padrão está configurada para um espaço de 50cm, tamanho médio da entrada de um bueiro, mas pode ser ajustada de acordo com a necessidade.
 <p align=center>
@@ -41,6 +39,7 @@ O funcionamento do projeto segue os mesmos passos do outro repositório já menc
 
 3.  A leitura feita pelo sensor é enviada para a plataforma Tago através de comandos específicos no [código](Codigo_Arduino.ino) do programa arduino, que levam em conta o endereço WEB da plataforma tago bem como o código token de um dispositivo virtual criado na plataforma, para que a leitura possa ser armazenada nas variáveis desse dispositivo;
     - Essas leituras e suas respecitvas variáveis são apresentadas em forma de um dashboard-display, função já inclusa na plataforma Tago, indicando o estado atual do bueiro verificado (se está obstruido ou não);
+    - Importante notar as mudanças no código em relação ao outro repositório, uma vez que aqui ele está adatpado ao método de comunicação MQTT;
 <p align=center>
 <img src="./imgs/Variavel_Tago.png" width="650" height="auto">
 </p>
@@ -59,6 +58,7 @@ ___
   Para executar o projeto serão necessários:
   - Arduino (juntamente com o código presente [neste arquivo](Codigo_Arduino.ino) - anexa também sua [versão em txt](Codigo_Arduino.txt))
   - Acesso a plataforma [TagoIO](https://tago.io) - Para estabelecer a estrutura online do sistema IoI aqui desenvolvido - bem como conhecimento básico sobre seu funcionamento e sobre os conceitos de IoT.
+     - O dispositivo na plataforma Tago deve ser ajustado adequadamente para receber os dados do circuito via protocolo MQTT. Os passos a serem seguidos para tais ajustes se encontram neste [Vídeo Explicativo](https://www.loom.com/share/43b9713dfc124fd494703b99fdfbaff1?sid=0248a9c3-4209-4ef8-978e-6f210997252e)
   
 E também será necessário um kit básico de componentes físicos do Arduino, dos quais serão utilizados:
 <table align=center>
@@ -99,4 +99,4 @@ ___
 Para execução do projeto é necessária experiência com o uso do programa Arduino e de seus componentes físicos, conhecimento básico da linguagem C++ para entendimento do código e ajustes necesários, conhecimento básico dos conceitos de IoT e conhecimento básico de usos da plataforma Tago
 ___
 ### Links relacionados
-  [Vídeo Explicativo do Projeto](https://drive.google.com/file/d/1EqzJbH2uIi5HkwbB1Zf4dogRBSRg_cqz/view?usp=sharing)
+  [Vídeo Explicativo do Projeto](https://drive.google.com/file/d/1ef7AVcTwA-g2TXstnB8Lqaa6P-KBTt9M/view?usp=sharing)
