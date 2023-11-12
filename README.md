@@ -1,4 +1,4 @@
-## Desenvolvimento e Entrega da Sprint 3 - Edge Computing and Computer Systems - Challenge 2023 :rooster:
+## Desenvolvimento e Entrega da Sprint 4 - Edge Computing and Computer Systems - Challenge 2023 :rooster:
 ![Badge Concluido](https://img.shields.io/badge/STATUS-CONCLUIDO-GREEN)
 
 **Nomes + RM dos integrantes:**
